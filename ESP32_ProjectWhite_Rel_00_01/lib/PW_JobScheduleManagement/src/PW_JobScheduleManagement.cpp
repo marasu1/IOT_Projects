@@ -6,6 +6,7 @@
 
 #include <Arduino.h>
 #include "PW_JobScheduleManagement.h"
+#include "PW_PowerManagement.h"
 
 PW_JobScheduleManagement *tempObj;
 
@@ -17,37 +18,12 @@ void Schedule()
 PW_JobScheduleManagement::PW_JobScheduleManagement()
 {
     tempObj = this;
-    Serial.begin(115200);
-    pinMode(2, OUTPUT);
 }
 
 void PW_JobScheduleManagement::JobScheduler()
 {
     JobSchCycleCnt = JobSchCycleCnt + 1;
-    if(0 == JobSchCycleCnt % (20/JobSchCycleTime))
-    {
-        PwrMgmt.MonitorPowerMode1();
-    }
-    
-    if(0 == JobSchCycleCnt % (100/JobSchCycleTime))
-    {
-        PwrMgmt.MonitorPowerMode2();
-    }
 
-    if(0 == JobSchCycleCnt % (500/JobSchCycleTime))
-    {
-        Serial.print("Schm_Cnt = ");
-        Serial.print(JobSchCycleCnt);
-        Serial.println();
-        Serial.print("PowerMode01Cnt = ");
-        Serial.print(PwrMgmt.PowerMode01Cnt);
-        Serial.println();
-        Serial.print("PowerMode02Cnt = ");
-        Serial.print(PwrMgmt.PowerMode02Cnt);
-        Serial.println();
-        Serial.println();
-        digitalWrite(2, ~(digitalRead(2)));
-    }
 }
 
 void PW_JobScheduleManagement::SetupCycle(unsigned long CycleTime)

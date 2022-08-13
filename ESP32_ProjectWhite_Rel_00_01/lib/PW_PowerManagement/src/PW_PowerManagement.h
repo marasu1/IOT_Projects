@@ -13,10 +13,6 @@ class PW_PowerManagement
 {
   public:
     PW_PowerManagement();
-    void MonitorPowerMode1();
-    void MonitorPowerMode2();
-    unsigned long PowerMode01Cnt;
-    unsigned long PowerMode02Cnt;
     
   private:
 

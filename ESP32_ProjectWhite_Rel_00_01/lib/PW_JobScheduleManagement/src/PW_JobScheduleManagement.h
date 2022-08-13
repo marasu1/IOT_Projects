@@ -1,5 +1,5 @@
 /*
-  PW_JobScheduleManagement.cpp - Library for Management of controller's Job Scheduler.
+  PW_JobScheduleManagement.h - Library for Management of controller's Job Scheduler.
   Created by Sumant Marathe, August 6, 2022.
   Released into the public domain.
 */
