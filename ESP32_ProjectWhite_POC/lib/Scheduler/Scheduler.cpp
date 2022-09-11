@@ -14,6 +14,7 @@
 #include "TimerHandler.h"
 #include "Database.h"
 #include "SinricProWrapper.h"
+#include "IoHandler.h"
 
 /**
  * @brief   Callback API
@@ -71,8 +72,9 @@ void Scheduler_Main()
      */
     if((DB_ScheduleCounter % 10) == 0)
     {
-
-        SinricProWrapper_handle();
+        SinricProWrapper_Handle();
+        IoHandler_HandleInputs();
+        IoHandler_HandleOutputs();
     }
 
     /**

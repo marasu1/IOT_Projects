@@ -10,11 +10,13 @@
  */
 
 
-#include "database.h"
-
+#include "Database.h"
+#include "IoHandler.h"
 
 /* Global variables */
 unsigned long DB_ScheduleCounter;
+boolean DB_DigitalPinStatus[10];
+boolean DB_DigitalPinDir[10];
 
 /**
  * @brief Initialize the Database
@@ -23,4 +25,10 @@ unsigned long DB_ScheduleCounter;
 void Database_Init(void)
 {
     DB_ScheduleCounter = 0;
+
+    for(unsigned char pinIndex = 0; pinIndex < NUM_OF_DIGITAL_PINS; pinIndex++)
+    {
+        DB_DigitalPinDir[pinIndex] = PIN_OUT;
+        DB_DigitalPinStatus[pinIndex] = PIN_LOW;
+    }
 }

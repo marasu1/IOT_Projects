@@ -16,6 +16,8 @@
 
 /* Global variables */
 extern unsigned long DB_ScheduleCounter;
+extern boolean DB_DigitalPinStatus[10];
+extern boolean DB_DigitalPinDir[10];
 
 /* APIs */
 extern void Database_Init(void);

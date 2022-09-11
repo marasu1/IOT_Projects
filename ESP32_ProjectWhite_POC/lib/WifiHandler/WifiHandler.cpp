@@ -9,8 +9,9 @@
  * 
  */
 
-#include "WifiHandler.h"
 #include <WiFi.h>
+#include "WifiHandler.h"
+#include "CommunicationHandler.h"
 
 /**
  * @brief API for initizaliztion of Wifi Handler

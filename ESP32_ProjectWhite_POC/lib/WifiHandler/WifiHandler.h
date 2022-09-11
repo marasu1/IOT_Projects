@@ -15,6 +15,10 @@
 #include <Arduino.h>
 #include "CommonDefs.h"
 
+/* Wifi Defines */
+#define WIFI_SSID         "Tech_D0012564"    
+#define WIFI_PASS         "9422690291"
+
 /* APIs */
 extern void WifiHandler_Init(void);
 

@@ -13,33 +13,44 @@
 #include "SinricPro.h"
 #include "SinricProSwitch.h"
 #include "SinricProWrapper.h"
+#include "Database.h"
 
-static boolean myPowerState = false;
 
-
-/**
- * @brief local function for the event of power state change
- * 
- * @param deviceId 
- * @param state 
- * @return true 
- * @return false 
- */
-static bool onPowerState(const String &deviceId, bool &state) 
+const SinricProDevicesType SinricProDevices[NUMBER_OF_DEVICES] = 
 {
-    Serial.printf("Device %s turned %s (via SinricPro) \r\n", deviceId.c_str(), state?"on":"off");
-    
-    myPowerState = state;
-    
-    digitalWrite(BUILTIN_LED_PIN, myPowerState?LOW:HIGH);
-    return true; // request handled properly
-}
+    {
+        SWITCH,
+        "62ee4b3fda0cc6324369b6b2",
+        SinricProWrapper_Switch_Cbk_01
+    },
+    {
+        UNUSED,
+        "NA",
+        SinricProWrapper_Dummy
+    },
+    {
+        UNUSED,
+        "NA",
+        SinricProWrapper_Dummy
+    },
+    {
+        UNUSED,
+        "NA",
+        SinricProWrapper_Dummy
+    },
+    {
+        UNUSED,
+        "NA",
+        SinricProWrapper_Dummy
+    }
+};
+
 
 /**
  * @brief Wrapper API for SinricPro.handle 
  * 
  */
-void SinricProWrapper_handle(void)
+void SinricProWrapper_Handle(void)
 {
     SinricPro.handle();
 }
@@ -50,13 +61,25 @@ void SinricProWrapper_handle(void)
  */
 void SinricProWrapper_Init(void)
 {
-    myPowerState = LOW;
+    unsigned char deviceIndex = 0;
 
-    // add device to SinricPro
-    SinricProSwitch& mySwitch = SinricPro[SWITCH_ID];
-
-    // set callback function to device
-    mySwitch.onPowerState(onPowerState);
+    for(deviceIndex = 0; deviceIndex < NUMBER_OF_DEVICES; deviceIndex++)
+    {
+        if(SinricProDevices[deviceIndex].type == SWITCH)
+        {
+            // add device to SinricPro
+            SinricProSwitch& mySwitch = SinricPro[SinricProDevices[deviceIndex].id];
+        
+            // set callback function to device
+            mySwitch.onPowerState(SinricProDevices[deviceIndex].Device_Cbk);
+            
+        }
+        else
+        {
+            /* Do nothing */
+        }
+        
+    }
 
     // setup SinricPro
     SinricPro.onConnected([](){ Serial.printf("Connected to SinricPro\r\n"); }); 
@@ -64,4 +87,35 @@ void SinricProWrapper_Init(void)
     
     //SinricPro.restoreDeviceStates(true); // Uncomment to restore the last known state from the server.
     SinricPro.begin(APP_KEY, APP_SECRET);
+}
+
+/**
+ * @brief Callback for Device Swtich 01
+ * 
+ * @param deviceId 
+ * @param state 
+ * @return true 
+ * @return false 
+ */
+bool SinricProWrapper_Switch_Cbk_01(const String &deviceId, bool &state)
+{
+    Serial.printf("Device %s turned %s (via SinricPro) \r\n", deviceId.c_str(), state?"on":"off");
+    
+    DB_DigitalPinStatus[SWITCH_DIGITAL_PIN_01] = state;
+
+    return true; // request handled properly
+}
+
+/**
+ * @brief Dummy Callback
+ * 
+ * @param deviceId 
+ * @param state 
+ * @return true 
+ * @return false 
+ */
+bool SinricProWrapper_Dummy(const String &deviceId, bool &state)
+{
+    /* Dummy Function */
+    return true;
 }

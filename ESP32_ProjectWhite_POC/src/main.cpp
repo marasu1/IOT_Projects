@@ -16,6 +16,8 @@
 #include "Database.h"
 #include "SinricProWrapper.h"
 #include "WifiHandler.h"
+#include "CommunicationHandler.h"
+#include "IoHandler.h"
 
 void setup() 
 {
@@ -26,19 +28,10 @@ void setup()
 
     Database_Init();
     (void)Scheduler_Init();
-
-
-    Serial.begin(BAUD_RATE);
-
-
-    /* Initialize GPIO pins */
-    pinMode(BUILTIN_LED_PIN, OUTPUT);
-
-    /* Setup Wifi */
+    CommunicationHandler_Init();
+    IoHandler_Init();
     WifiHandler_Init();
-
     SinricProWrapper_Init();
-
 }
 
 void loop()
