@@ -16,8 +16,12 @@
 
 /* Global variables */
 extern unsigned long DB_ScheduleCounter;
-extern boolean DB_DigitalPinStatus[10];
-extern boolean DB_DigitalPinDir[10];
+extern bool DB_DigitalPinStatus[10];
+extern bool DB_DigitalPinDir[10];
+
+extern bool DB_DeviceSwitch01_Status;
+extern bool DB_DeviceFan01_Status;
+extern unsigned char DB_DeviceFan01_Value;
 
 /* APIs */
 extern void Database_Init(void);

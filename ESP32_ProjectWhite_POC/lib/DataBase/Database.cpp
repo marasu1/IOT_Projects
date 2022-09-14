@@ -15,8 +15,13 @@
 
 /* Global variables */
 unsigned long DB_ScheduleCounter;
-boolean DB_DigitalPinStatus[10];
-boolean DB_DigitalPinDir[10];
+
+bool DB_DigitalPinStatus[10];
+bool DB_DigitalPinDir[10];
+
+bool DB_DeviceSwitch01_Status;
+bool DB_DeviceFan01_Status;
+unsigned char DB_DeviceFan01_Value;
 
 /**
  * @brief Initialize the Database
@@ -26,9 +31,16 @@ void Database_Init(void)
 {
     DB_ScheduleCounter = 0;
 
+    /* Initialize the digital Pin directions and values in database */
     for(unsigned char pinIndex = 0; pinIndex < NUM_OF_DIGITAL_PINS; pinIndex++)
     {
         DB_DigitalPinDir[pinIndex] = PIN_OUT;
         DB_DigitalPinStatus[pinIndex] = PIN_LOW;
     }
+
+    /* Initialize the Device values in database */
+    DB_DeviceSwitch01_Status = FALSE;
+    DB_DeviceFan01_Status = FALSE;
+    DB_DeviceFan01_Value = 0;
+
 }
