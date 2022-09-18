@@ -18,6 +18,7 @@
 #include "WifiHandler.h"
 #include "CommunicationHandler.h"
 #include "IoHandler.h"
+#include "TouchSensorHandler.h"
 
 void setup() 
 {
@@ -31,6 +32,7 @@ void setup()
     CommunicationHandler_Init();
     IoHandler_Init();
     WifiHandler_Init();
+    TouchSensorHandler_Init();
     SinricProWrapper_Init();
 }
 

@@ -11,17 +11,20 @@
 
 
 #include "Database.h"
+#include "TouchSensorHandler.h"
 #include "IoHandler.h"
 
 /* Global variables */
 unsigned long DB_ScheduleCounter;
 
-bool DB_DigitalPinStatus[10];
-bool DB_DigitalPinDir[10];
+bool DB_DigitalPinStatus[NUM_OF_DIGITAL_PINS];
+bool DB_DigitalPinDir[NUM_OF_DIGITAL_PINS];
 
 bool DB_DeviceSwitch01_Status;
 bool DB_DeviceFan01_Status;
 unsigned char DB_DeviceFan01_Value;
+
+enum DB_TouchSensorStatus_Enum DB_TouchSensor_Status[NUMBER_OF_TOUCH_SENSORS];
 
 /**
  * @brief Initialize the Database
@@ -36,6 +39,13 @@ void Database_Init(void)
     {
         DB_DigitalPinDir[pinIndex] = PIN_OUT;
         DB_DigitalPinStatus[pinIndex] = PIN_LOW;
+    }
+
+
+    /* Initialize the Touch Sensor Status in database */
+    for(unsigned char touchSensorIndex = 0; touchSensorIndex < NUMBER_OF_TOUCH_SENSORS; touchSensorIndex++)
+    {
+        DB_TouchSensor_Status[touchSensorIndex] = TOUCH_NO;
     }
 
     /* Initialize the Device values in database */

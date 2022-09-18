@@ -15,6 +15,7 @@
 #include "Database.h"
 #include "SinricProWrapper.h"
 #include "IoHandler.h"
+#include "TouchSensorHandler.h"
 
 /**
  * @brief   Callback API
@@ -74,7 +75,10 @@ void Scheduler_Main()
     {
         SinricProWrapper_Handle();
         IoHandler_HandleInputs();
+        TouchSensorHandler_Handle();
+        
         IoHandler_HandleOutputs();
+        
     }
 
     /**
@@ -83,7 +87,7 @@ void Scheduler_Main()
      */
     if((DB_ScheduleCounter % 25) == 0)
     {
-
+        
     }
 
 
