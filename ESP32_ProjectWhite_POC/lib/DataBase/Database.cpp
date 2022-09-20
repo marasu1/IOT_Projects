@@ -20,6 +20,8 @@ unsigned long DB_ScheduleCounter;
 bool DB_DigitalPinStatus[NUM_OF_DIGITAL_PINS];
 bool DB_DigitalPinDir[NUM_OF_DIGITAL_PINS];
 
+bool DB_DigitalExtensionOutputPinStatus[NUM_OF_EXTENSION_OUTPUT_DIGITAL_PINS];
+
 bool DB_DeviceSwitch01_Status;
 bool DB_DeviceFan01_Status;
 unsigned char DB_DeviceFan01_Value;

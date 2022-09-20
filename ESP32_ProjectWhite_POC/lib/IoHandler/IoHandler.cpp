@@ -24,6 +24,11 @@ void IoHandler_Init(void)
 {
     /* Initialize GPIO pins */
     pinMode(BUILTIN_LED_PIN, OUTPUT);
+
+    /* Initialize Input/Output Extensions */
+    pinMode(LATCH_PIN_74HC595, OUTPUT);
+    pinMode(CLOCK_PIN_74HC595, OUTPUT);
+    pinMode(DATA_PIN_74HC595, OUTPUT);
 }
 
 /**
@@ -66,4 +71,35 @@ void IoHandler_HandleOutputs(void)
             /* Do nothing */
         }
     }
+
+}
+
+/**
+ * @brief Handle Input/Output extensions
+ * 
+ */
+void IoHandler_HandleIoExtensions(void)
+{
+    /**
+     * @brief Handle 74HC595
+     * 
+     */
+
+    unsigned char pinIndex = 0;
+    
+
+    for(pinIndex = 0; pinIndex < NUM_OF_EXTENSION_OUTPUT_DIGITAL_PINS; pinIndex++)
+    {
+        byte bitsToSend = 0;
+        
+        // turn off the output
+        digitalWrite(LATCH_PIN_74HC595, LOW);
+        // turn on the next highest bit in bitsToSend:
+        bitWrite(bitsToSend, pinIndex, DB_DigitalExtensionOutputPinStatus[pinIndex]);
+        // shift the bits out:
+        shiftOut(DATA_PIN_74HC595, CLOCK_PIN_74HC595, MSBFIRST, bitsToSend);
+        // turn on the output so the LEDs can light up:
+        digitalWrite(LATCH_PIN_74HC595, HIGH);
+    }
+
 }

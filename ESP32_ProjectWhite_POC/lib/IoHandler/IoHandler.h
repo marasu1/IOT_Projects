@@ -17,11 +17,19 @@
 
 #define NUM_OF_DIGITAL_PINS 10
 
+#define NUM_OF_EXTENSION_OUTPUT_DIGITAL_PINS 8
+
 #define PIN_IN  0
 #define PIN_OUT  1
 
 #define PIN_LOW  0
 #define PIN_HIGH  1
+
+
+/* Input/Output Extension Pins */
+#define LATCH_PIN_74HC595 1
+#define CLOCK_PIN_74HC595 2
+#define DATA_PIN_74HC595 3
 
 
 /* Global variables */
@@ -32,5 +40,6 @@ extern void IoHandler_Init(void);
 extern void IoHandler_HandleInputs(void);
 extern void IoHandler_HandleOutputs(void);
 
+extern void IoHandler_HandleIoExtensions(void);
 
 #endif

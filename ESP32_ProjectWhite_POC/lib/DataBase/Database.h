@@ -28,6 +28,8 @@ extern unsigned long DB_ScheduleCounter;
 extern bool DB_DigitalPinStatus[];
 extern bool DB_DigitalPinDir[];
 
+extern bool DB_DigitalExtensionOutputPinStatus[];
+
 extern bool DB_DeviceSwitch01_Status;
 extern bool DB_DeviceFan01_Status;
 extern unsigned char DB_DeviceFan01_Value;

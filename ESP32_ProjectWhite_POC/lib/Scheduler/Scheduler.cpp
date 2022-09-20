@@ -87,7 +87,7 @@ void Scheduler_Main()
      */
     if((DB_ScheduleCounter % 25) == 0)
     {
-        
+        IoHandler_HandleIoExtensions();
     }
 
 
