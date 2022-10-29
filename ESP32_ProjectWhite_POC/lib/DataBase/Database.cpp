@@ -26,6 +26,12 @@ bool DB_DeviceSwitch01_Status;
 bool DB_DeviceFan01_Status;
 unsigned char DB_DeviceFan01_Value;
 
+bool DB_Device01_Light01_Status;
+bool DB_Device02_Light02_Status;
+bool DB_Device03_Light03_Status;
+bool DB_Device04_Fan01_Status;
+
+
 enum DB_TouchSensorStatus_Enum DB_TouchSensor_Status[NUMBER_OF_TOUCH_SENSORS];
 
 /**

@@ -16,6 +16,7 @@
 #include "SinricProWrapper.h"
 #include "IoHandler.h"
 #include "TouchSensorHandler.h"
+#include "Application.h"
 
 /**
  * @brief   Callback API
@@ -28,7 +29,7 @@ void Scheduler_Callback_TimerOverflow()
     DB_ScheduleCounter = DB_ScheduleCounter + 1;
     
     /* Ceiling of Schedule Counter to an hour */
-    if(DB_ScheduleCounter >= 360000)
+    if(DB_ScheduleCounter >= 3600000)
     {
         DB_ScheduleCounter = 0;
     }
@@ -54,7 +55,7 @@ boolean Scheduler_Init(void)
      */
 
     /* Initiate Timer */
-    retVal = TimerHandler_InitTimer();
+    TimerHandler_InitTimer();
 
     return retVal;
 }
@@ -66,38 +67,73 @@ boolean Scheduler_Init(void)
  */
 void Scheduler_Main()
 {
-  
+
     /**
-     * @brief APIs with 100ms Periodicity
+     * @brief APIs with 2ms Periodicity
+     * 
+     */
+    if((DB_ScheduleCounter % 2) == 0)
+    {
+        IoHandler_HandleDigitalInputs();
+        IoHandler_HandleDigitalOutputs();
+    }
+    else
+    {
+        /* Do nothing */
+    }
+
+    /**
+     * @brief APIs with 10ms Periodicity
      * 
      */
     if((DB_ScheduleCounter % 10) == 0)
     {
-        SinricProWrapper_Handle();
-        IoHandler_HandleInputs();
+        Application_ProcessInputs();
+        Application_ProcessOutputs();
+    }
+    else
+    {
+        /* Do nothing */
+    }
+
+    /**
+     * @brief APIs with 100ms Periodicity
+     * 
+     */
+    if((DB_ScheduleCounter % 100) == 0)
+    {
+        SinricProWrapper_Handle();    
         TouchSensorHandler_Handle();
-        
-        IoHandler_HandleOutputs();
-        
+    }
+    else
+    {
+        /* Do nothing */
     }
 
     /**
      * @brief APIs with 250ms Periodicity
      * 
      */
-    if((DB_ScheduleCounter % 25) == 0)
+    if((DB_ScheduleCounter % 250) == 0)
     {
         IoHandler_HandleIoExtensions();
     }
-
+    else
+    {
+        /* Do nothing */
+    }
 
     /**
      * @brief APIs with 500ms Periodicity
      * 
      */
-    if((DB_ScheduleCounter % 50) == 0)
+    if((DB_ScheduleCounter % 500) == 0)
     {
 
+    }
+    else
+    {
+        /* Do nothing */
     }
 
 }

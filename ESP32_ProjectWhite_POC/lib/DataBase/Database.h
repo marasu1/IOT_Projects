@@ -19,7 +19,8 @@
 enum DB_TouchSensorStatus_Enum
 {
     TOUCH_NO = 0,
-    TOUCH_YES
+    TOUCH_YES,
+    TOUCH_YES_HELD
 };
 
 
@@ -34,6 +35,11 @@ extern bool DB_DeviceSwitch01_Status;
 extern bool DB_DeviceFan01_Status;
 extern unsigned char DB_DeviceFan01_Value;
 
+
+extern bool DB_Device01_Light01_Status;
+extern bool DB_Device02_Light02_Status;
+extern bool DB_Device03_Light03_Status;
+extern bool DB_Device04_Fan01_Status;
 
 extern enum DB_TouchSensorStatus_Enum DB_TouchSensor_Status[];
 

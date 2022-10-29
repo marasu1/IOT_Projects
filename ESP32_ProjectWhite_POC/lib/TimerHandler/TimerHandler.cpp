@@ -9,24 +9,13 @@
  * 
  */
 
-#include <Ticker.h>
 #include "TimerHandler.h"
+#include "InterruptHandler.h"
 #include "Scheduler.h"
 
 
-Ticker jobTicker;
-
-static void localTimerOverflowCallout()
+void TimerHandler_InitTimer(void)
 {
-    Scheduler_Callback_TimerOverflow();
-}
-
-boolean TimerHandler_InitTimer(void)
-{
-    boolean retVal = FALSE;
-
-    jobTicker.attach_ms(PW_SCHEDULE_CYCLE_TIME, localTimerOverflowCallout);
-    retVal = TRUE;
-
-    return retVal;
+    boolean retVal;
+    retVal = InterruptHandler_AttachTimerInterrupt(PW_SCHEDULE_CYCLE_TIME);
 }

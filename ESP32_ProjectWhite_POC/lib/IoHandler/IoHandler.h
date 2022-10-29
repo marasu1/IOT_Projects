@@ -37,8 +37,9 @@
 
 /* APIs */
 extern void IoHandler_Init(void);
-extern void IoHandler_HandleInputs(void);
-extern void IoHandler_HandleOutputs(void);
+extern void IoHandler_HandleDigitalInputs(void);
+extern void IoHandler_HandleDigitalOutputs(void);
+
 
 extern void IoHandler_HandleIoExtensions(void);
 

@@ -11,7 +11,9 @@
 
 
 #include "IoHandler.h"
+#include "InterruptHandler.h"
 #include "Database.h"
+#include "IoConnections.h"
 
 /* Global variables */
 
@@ -22,20 +24,29 @@
  */
 void IoHandler_Init(void)
 {
-    /* Initialize GPIO pins */
-    pinMode(BUILTIN_LED_PIN, OUTPUT);
+    /* Initialize Input Pins */
+    for(unsigned char index = 0; index < PININ_TOTAL_PINS; index++)
+    {
+        pinMode(IoConnections_InputPins[index], INPUT);
+        DB_DigitalPinDir[index] = PIN_IN;
+    }
 
-    /* Initialize Input/Output Extensions */
-    pinMode(LATCH_PIN_74HC595, OUTPUT);
-    pinMode(CLOCK_PIN_74HC595, OUTPUT);
-    pinMode(DATA_PIN_74HC595, OUTPUT);
+    /* Initialize Output Pins */
+    for(unsigned char index = 0; index < PINOUT_TOTAL_PINS; index++)
+    {
+        pinMode(IoConnections_OutputPins[index], OUTPUT);
+        DB_DigitalPinDir[index] = PIN_OUT;
+        DB_DigitalPinStatus[index] = PIN_LOW;
+    }
+
+    InterruptHandler_AttachDigitalPinInterrupt(PININ_AC_ZERO_CROSSING_SENSOR);
 }
 
 /**
- * @brief Handle the input pins
+ * @brief Handle the digital   input pins
  * 
  */
-void IoHandler_HandleInputs(void)
+void IoHandler_HandleDigitalInputs(void)
 {
     unsigned char pinIndex = 0;
 
@@ -53,10 +64,10 @@ void IoHandler_HandleInputs(void)
 }
 
 /**
- * @brief Handle the output pins
+ * @brief Handle the digital output pins
  * 
  */
-void IoHandler_HandleOutputs(void)
+void IoHandler_HandleDigitalOutputs(void)
 {
     unsigned char pinIndex = 0;
 
@@ -79,7 +90,7 @@ void IoHandler_HandleOutputs(void)
  * 
  */
 void IoHandler_HandleIoExtensions(void)
-{
+{ 
     /**
      * @brief Handle 74HC595
      * 

@@ -16,7 +16,7 @@
 #include "CommonDefs.h"
 
 /* APIs */
-extern boolean TimerHandler_InitTimer(void);
+extern void TimerHandler_InitTimer(void);
 
 
 

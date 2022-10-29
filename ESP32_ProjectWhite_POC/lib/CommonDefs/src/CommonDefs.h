@@ -16,12 +16,12 @@
 #define FALSE 0
 
 
-#define PW_SCHEDULE_CYCLE_TIME    10
+#define PW_SCHEDULE_CYCLE_TIME    1
 
 #define SERIAL_COMM_BAUD_RATE   115200
 #define BUILTIN_LED_PIN         2
 
-
+#define PIN_ZEROCROSSING_0  3
 
 
 
